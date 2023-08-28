@@ -12,7 +12,8 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     && pecl install xdebug-3.2.1 && docker-php-ext-enable xdebug \
     && apt update && apt install -y libicu-dev zip unzip && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install intl \
-    && docker-php-ext-install opcache
+    && docker-php-ext-install opcache \
+    && a2enmod rewrite
 
 RUN groupadd -g $GID -o $USER_NAME && useradd -m -u $UID -g $GID -o -s /bin/bash $USER_NAME && chown $USER_NAME:$USER_NAME /var/www/html
 
